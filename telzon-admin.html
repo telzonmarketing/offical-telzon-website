@@ -221,13 +221,32 @@ a{color:inherit;text-decoration:none}
     </div>
 
     <!-- EXPORT PANEL -->
-    <div class="export-panel">
-      <h3>Export Blog HTML</h3>
-      <p>Generate HTML code for your blog listing page. Copy and paste into <code style="color:var(--gr)">telzon-blogs.html</code>.</p>
+    <!-- GITHUB PUBLISH PANEL -->
+    <div class="export-panel" style="border-color:var(--grr);background:linear-gradient(135deg,#0a1a0f,#000)">
+      <h3 style="color:var(--gr)">Publish to Live Website</h3>
+      <p style="margin-bottom:16px">Push your blog posts directly to GitHub. The live website updates automatically within 2 minutes.</p>
+      <div id="gh-setup" style="display:none;margin-bottom:16px">
+        <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">GitHub Personal Access Token</div>
+        <div style="display:flex;gap:8px">
+          <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="flex:1;background:#0a0a0a;border:1px solid #252525;border-radius:10px;padding:10px 14px;font-family:inherit;font-size:12px;color:#fff;outline:none">
+          <button onclick="saveGhToken()" style="background:var(--grb);border:1px solid var(--grr);color:var(--gr);border-radius:10px;padding:10px 16px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">Save Token</button>
+        </div>
+        <div style="font-size:11px;color:#555;margin-top:6px">Token stored in sessionStorage only. Clears when you close the tab. <a href="https://github.com/settings/tokens" target="_blank" style="color:var(--gr)">Get token →</a></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <button class="btn-new" onclick="publishToGitHub()" id="publish-btn" style="background:var(--gr);font-size:13px">Publish to Website</button>
+        <button class="btn-export" onclick="toggleGhSetup()">GitHub Settings</button>
+        <div id="publish-status" style="font-size:12px;color:#888"></div>
+      </div>
+    </div>
+
+    <!-- EXPORT PANEL -->
+    <div class="export-panel" style="margin-top:12px">
+      <h3>Export / Backup</h3>
+      <p>Download or copy your blog data for backup.</p>
       <div class="export-btns">
-        <button class="btn-export" onclick="exportBlogCards()">Export Blog Cards HTML</button>
-        <button class="btn-export" onclick="exportSitemapEntries()">Export Sitemap Entries</button>
         <button class="btn-export" onclick="exportAllData()">Export All Data (JSON)</button>
+        <button class="btn-export" onclick="exportSitemapEntries()">Export Sitemap Entries</button>
       </div>
       <div class="export-output" id="export-output">
         <textarea id="export-textarea" readonly></textarea>
@@ -613,6 +632,99 @@ function exportSitemapEntries(){
 function exportAllData(){
   const posts = getPosts();
   showExport(JSON.stringify(posts, null, 2));
+}
+
+// ══════════════════════════════════
+//  GITHUB PUBLISH
+// ══════════════════════════════════
+const GH_OWNER = 'telzonmarketing';
+const GH_REPO  = 'offical-telzon-website';
+const GH_FILE  = 'blog-posts.json';
+const GH_API   = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`;
+
+function toggleGhSetup(){
+  const el = document.getElementById('gh-setup');
+  el.style.display = el.style.display === 'none' ? '' : 'none';
+}
+
+function saveGhToken(){
+  const tok = document.getElementById('gh-token').value.trim();
+  if(!tok){ showToast('Enter a GitHub token first'); return; }
+  sessionStorage.setItem('gh_token', tok);
+  document.getElementById('gh-token').value = '';
+  document.getElementById('gh-setup').style.display = 'none';
+  showToast('Token saved for this session');
+}
+
+function setStatus(msg, color){
+  const el = document.getElementById('publish-status');
+  el.textContent = msg;
+  el.style.color = color || '#888';
+}
+
+async function publishToGitHub(){
+  const token = sessionStorage.getItem('gh_token');
+  if(!token){
+    document.getElementById('gh-setup').style.display = '';
+    setStatus('Enter your GitHub token above first', '#ff5050');
+    return;
+  }
+
+  const posts = getPosts();
+  const btn = document.getElementById('publish-btn');
+  btn.disabled = true;
+  btn.textContent = 'Publishing...';
+  setStatus('Connecting to GitHub...', '#888');
+
+  try {
+    // 1. Get current file SHA (needed to update the file)
+    let sha = null;
+    const getRes = await fetch(GH_API, {
+      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+    });
+    if(getRes.ok){
+      const data = await getRes.json();
+      sha = data.sha;
+    } else if(getRes.status !== 404){
+      throw new Error(`GitHub error: ${getRes.status}`);
+    }
+
+    // 2. Encode posts as base64
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(posts, null, 2))));
+
+    // 3. Push to GitHub
+    const body = {
+      message: `Blog updated — ${new Date().toLocaleString('en-IN')}`,
+      content,
+      ...(sha ? { sha } : {})
+    };
+
+    setStatus('Pushing to GitHub...', '#888');
+    const putRes = await fetch(GH_API, {
+      method: 'PUT',
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+
+    if(!putRes.ok){
+      const err = await putRes.json();
+      throw new Error(err.message || `HTTP ${putRes.status}`);
+    }
+
+    setStatus('Published! Website updates in ~2 minutes.', 'var(--gr)');
+    showToast('Blog published to live website!');
+
+  } catch(e) {
+    setStatus('Error: ' + e.message, '#ff5050');
+    showToast('Publish failed — check token');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Publish to Website';
+  }
 }
 
 function showExport(content){

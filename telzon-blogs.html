@@ -231,26 +231,26 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
   </div>
 </div>
 
-<!-- FEATURED POST -->
-<section class="featured-section fade-up">
+<!-- FEATURED POST — dynamically loaded -->
+<section class="featured-section fade-up" id="featured-section" style="display:none">
   <div class="sec-tag" style="margin-bottom:20px">FEATURED ARTICLE</div>
-  <a href="telzon-blog-restaurant-seo.html" class="featured-card" style="display:block">
+  <a id="featured-link" href="#" class="featured-card" style="display:block">
     <div class="featured-visual">
-      <div class="cat-badge"><span class="cat-badge-dot"></span>Restaurant Growth</div>
+      <div class="cat-badge" id="featured-cat"><span class="cat-badge-dot"></span><span id="featured-cat-text">Loading</span></div>
       <div class="featured-visual-number">01</div>
     </div>
     <div class="featured-body">
-      <div class="featured-title">How to Rank Your Restaurant #1 on Google in 2026</div>
-      <p class="featured-excerpt">The complete local SEO guide for restaurant owners who want consistent foot traffic and delivery orders without paid ads. Covers Google Business Profile, review strategy, schema markup and content calendars.</p>
+      <div class="featured-title" id="featured-title">Loading...</div>
+      <p class="featured-excerpt" id="featured-excerpt"></p>
       <div class="featured-meta">
         <div class="meta-author">
           <div class="meta-av">T</div>
-          <span class="meta-name">TELZON Team</span>
+          <span class="meta-name" id="featured-author">TELZON Team</span>
         </div>
         <span class="meta-sep">·</span>
-        <span class="meta-info">May 15, 2026</span>
-        <span class="meta-sep">·</span>
-        <span class="meta-info">8 min read</span>
+        <span class="meta-info" id="featured-date"></span>
+        <span class="meta-sep" id="featured-rt-sep">·</span>
+        <span class="meta-info" id="featured-rt"></span>
         <span class="meta-sep" style="margin-left:8px">·</span>
         <span class="btn-read" style="margin-left:4px">Read Article →</span>
       </div>
@@ -260,105 +260,18 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
 
 <!-- FILTER TABS -->
 <section class="filter-section fade-up">
-  <div class="filter-tabs">
+  <div class="filter-tabs" id="filter-tabs">
     <button class="ftab active" onclick="filterBlogs('all',this)">All</button>
-    <button class="ftab" onclick="filterBlogs('restaurant',this)">Restaurant Growth</button>
-    <button class="ftab" onclick="filterBlogs('ai',this)">AI Marketing</button>
-    <button class="ftab" onclick="filterBlogs('seo',this)">Local SEO</button>
-    <button class="ftab" onclick="filterBlogs('cafe',this)">Café Branding</button>
-    <button class="ftab" onclick="filterBlogs('automation',this)">Automation</button>
   </div>
 </section>
 
-<!-- BLOG GRID -->
+<!-- BLOG GRID — dynamically loaded -->
 <section class="blog-grid-section fade-up">
   <div class="blog-grid" id="blogGrid">
-
-    <!-- Card 1: AI Marketing -->
-    <div class="blog-card" data-cat="ai" onmousemove="moveBlog(event,this)">
-      <div class="blog-card-header">
-        <div class="blog-card-icon">🤖</div>
-      </div>
-      <div class="blog-card-body">
-        <span class="blog-cat-pill">AI Marketing</span>
-        <h3 class="blog-card-title">What Is AI Marketing and Why Every Business Needs It in 2026</h3>
-        <p class="blog-card-excerpt">AI isn't replacing marketers — it's making smart ones unstoppable. Here's what it actually means for restaurants and cafés.</p>
-        <div class="blog-card-footer">
-          <div class="blog-card-author">
-            <strong>TELZON Team</strong>
-            <span>May 10, 2026 · 6 min</span>
-          </div>
-          <a href="telzon-blog-ai-marketing.html" class="btn-read-sm">Read →</a>
-        </div>
-      </div>
+    <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:#555">
+      <div style="width:28px;height:28px;border:3px solid #1a1a1a;border-top-color:var(--gr);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px"></div>
+      Loading articles...
     </div>
-
-    <!-- Card 2: Local SEO Nagpur -->
-    <div class="blog-card" data-cat="seo" onmousemove="moveBlog(event,this)">
-      <div class="blog-card-header">
-        <div class="blog-card-icon">📍</div>
-      </div>
-      <div class="blog-card-body">
-        <span class="blog-cat-pill">Local SEO</span>
-        <h3 class="blog-card-title">The Ultimate Local SEO Guide for Nagpur Businesses in 2026</h3>
-        <p class="blog-card-excerpt">If your Nagpur business isn't showing up when customers search, you're invisible. Here's how to fix that permanently.</p>
-        <div class="blog-card-footer">
-          <div class="blog-card-author">
-            <strong>TELZON Team</strong>
-            <span>May 5, 2026 · 7 min</span>
-          </div>
-          <a href="telzon-blog-local-seo-nagpur.html" class="btn-read-sm">Read →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 3: Café Growth -->
-    <div class="blog-card" data-cat="cafe" onmousemove="moveBlog(event,this)">
-      <div class="blog-card-header">
-        <div class="blog-card-icon">☕</div>
-      </div>
-      <div class="blog-card-body">
-        <span class="blog-cat-pill">Café Branding</span>
-        <h3 class="blog-card-title">How to Double Your Café Revenue in 90 Days Using Digital Marketing</h3>
-        <p class="blog-card-excerpt">The exact framework TELZON used to help a Nagpur café go from ₹3.2L to ₹6.4L monthly revenue.</p>
-        <div class="blog-card-footer">
-          <div class="blog-card-author">
-            <strong>TELZON Team</strong>
-            <span>Apr 28, 2026 · 9 min</span>
-          </div>
-          <a href="telzon-blog-cafe-growth.html" class="btn-read-sm">Read →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 4: Dubai Marketing -->
-    <div class="blog-card" data-cat="restaurant" onmousemove="moveBlog(event,this)">
-      <div class="blog-card-header">
-        <div class="blog-card-icon">🏙️</div>
-      </div>
-      <div class="blog-card-body">
-        <span class="blog-cat-pill">Restaurant Growth</span>
-        <h3 class="blog-card-title">How to Market Your Restaurant or Café in Dubai: The Complete 2026 Guide</h3>
-        <p class="blog-card-excerpt">Dubai's food scene is one of the most competitive on Earth. Here's how to build lasting visibility across Google, Instagram and delivery platforms.</p>
-        <div class="blog-card-footer">
-          <div class="blog-card-author">
-            <strong>TELZON Team</strong>
-            <span>Apr 20, 2026 · 7 min</span>
-          </div>
-          <a href="telzon-blog-dubai-marketing.html" class="btn-read-sm">Read →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 5: Coming Soon -->
-    <div class="blog-card coming-soon-card" data-cat="automation">
-      <div class="coming-soon-inner">
-        <div class="cs-icon">✍️</div>
-        <h3>Coming Soon</h3>
-        <p>WhatsApp CRM Automation for Restaurants — A complete implementation guide. Publishing June 2026.</p>
-      </div>
-    </div>
-
   </div>
 </section>
 
@@ -459,13 +372,119 @@ function closeNav(){document.getElementById('mobNav').classList.remove('open');d
 const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.1});
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 function moveBlog(e,el){const r=el.getBoundingClientRect();el.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');el.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%')}
-function filterBlogs(cat,btn){
-  document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));
+// ── DYNAMIC BLOG LOADER ──
+const POSTS_URL = 'blog-posts.json';
+let allPosts = [];
+let activeFilter = 'all';
+
+function filterBlogs(cat, btn) {
+  activeFilter = cat;
+  document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.blog-card').forEach(c=>{
-    c.style.display=(cat==='all'||c.dataset.cat===cat)?'':'none';
+  renderGrid(allPosts);
+}
+
+function postUrl(post) {
+  return post.externalUrl || ('telzon-blog-post.html?id=' + post.id);
+}
+
+function formatDate(iso) {
+  return new Date(iso).toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'});
+}
+
+function getCatKey(post) {
+  return (post.categoryKey || post.category || '').toLowerCase().replace(/\s+/g, '-');
+}
+
+function getCatInitial(cat) {
+  const map = {
+    'Restaurant Growth':'R','AI Marketing':'AI','Local SEO':'S',
+    'Café Branding':'C','Automation':'A','Branding':'B',
+    'Social Media':'SM','Google Ads':'G','Case Study':'CS',
+    'Business Tips':'BT','International':'IN','Healthcare Marketing':'H',
+    'Education Marketing':'E','Real Estate':'RE'
+  };
+  return map[cat] || (cat||'?').substring(0,2).toUpperCase();
+}
+
+function renderFeatured(posts) {
+  const featured = posts.find(p => p.featured && p.published) || posts[0];
+  if (!featured) return;
+  document.getElementById('featured-section').style.display = '';
+  document.getElementById('featured-link').href = postUrl(featured);
+  document.getElementById('featured-cat-text').textContent = featured.category;
+  document.getElementById('featured-title').textContent = featured.title;
+  document.getElementById('featured-excerpt').textContent = featured.summary;
+  document.getElementById('featured-author').textContent = featured.author || 'TELZON Team';
+  document.getElementById('featured-date').textContent = formatDate(featured.createdAt);
+  if (featured.readTime) {
+    document.getElementById('featured-rt').textContent = featured.readTime + ' read';
+    document.getElementById('featured-rt-sep').style.display = '';
+  } else {
+    document.getElementById('featured-rt-sep').style.display = 'none';
+  }
+}
+
+function buildFilterTabs(posts) {
+  const cats = [...new Set(posts.filter(p=>p.published).map(p=>p.category).filter(Boolean))];
+  const tabs = document.getElementById('filter-tabs');
+  tabs.innerHTML = `<button class="ftab active" onclick="filterBlogs('all',this)">All</button>`;
+  cats.forEach(cat => {
+    const key = getCatKey({category:cat});
+    tabs.innerHTML += `<button class="ftab" onclick="filterBlogs('${key}',this)">${cat}</button>`;
   });
 }
+
+function renderGrid(posts) {
+  const grid = document.getElementById('blogGrid');
+  const published = posts.filter(p => p.published);
+  const filtered = activeFilter === 'all'
+    ? published
+    : published.filter(p => getCatKey(p) === activeFilter);
+
+  if (!filtered.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:#555">No posts in this category yet.</div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(post => {
+    const initial = getCatInitial(post.category);
+    const url = postUrl(post);
+    return `<div class="blog-card" data-cat="${getCatKey(post)}" onmousemove="moveBlog(event,this)">
+      <div class="blog-card-header">
+        <div class="blog-card-icon" style="font-size:11px;font-weight:900;color:var(--gr)">${initial}</div>
+      </div>
+      <div class="blog-card-body">
+        <span class="blog-cat-pill">${post.category || ''}</span>
+        <h3 class="blog-card-title">${post.title}</h3>
+        <p class="blog-card-excerpt">${post.summary || ''}</p>
+        <div class="blog-card-footer">
+          <div class="blog-card-author">
+            <strong>${post.author || 'TELZON Team'}</strong>
+            <span>${formatDate(post.createdAt)}${post.readTime ? ' · ' + post.readTime : ''}</span>
+          </div>
+          <a href="${url}" class="btn-read-sm">Read →</a>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function loadBlogPosts() {
+  try {
+    const res = await fetch(POSTS_URL + '?v=' + Date.now());
+    if (!res.ok) throw new Error('fetch failed');
+    allPosts = await res.json();
+    renderFeatured(allPosts);
+    buildFilterTabs(allPosts);
+    renderGrid(allPosts);
+  } catch(e) {
+    document.getElementById('blogGrid').innerHTML =
+      `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:#555">Could not load articles. Please refresh.</div>`;
+  }
+}
+
+loadBlogPosts();
 </script>
 </body>
 </html>
