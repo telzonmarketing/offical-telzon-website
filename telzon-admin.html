@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TELZON Admin — Blog Management</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gr:#06C167;--grb:rgba(6,193,103,.12);--grr:rgba(6,193,103,.3);--rp:999px;--t:.2s ease}
+body{font-family:'Inter',sans-serif;background:#000;color:#fff;min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+/* ── LOGIN SCREEN ── */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(6,193,103,.08),transparent 70%)}
+.login-box{width:100%;max-width:420px;background:#111;border:1px solid #1a1a1a;border-radius:24px;padding:48px 40px;text-align:center}
+.login-logo{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:32px}
+.login-wordmark{font-size:22px;font-weight:900;letter-spacing:-1px}
+.login-wordmark span{color:var(--gr)}
+.login-sub{font-size:11px;font-weight:700;color:#555;letter-spacing:.1em;text-transform:uppercase}
+.login-title{font-size:20px;font-weight:700;margin-bottom:6px}
+.login-desc{font-size:13px;color:#888;margin-bottom:32px}
+.login-field{position:relative;margin-bottom:16px}
+.login-field input{width:100%;background:#1a1a1a;border:1px solid #252525;border-radius:12px;padding:14px 18px;font-family:inherit;font-size:14px;color:#fff;outline:none;transition:border-color var(--t)}
+.login-field input:focus{border-color:var(--grr)}
+.login-field input::placeholder{color:#555}
+.login-btn{width:100%;background:var(--gr);color:#000;border:none;border-radius:12px;padding:14px;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer;transition:opacity var(--t)}
+.login-btn:hover{opacity:.9}
+.login-error{background:rgba(255,80,80,.1);border:1px solid rgba(255,80,80,.3);color:#ff5050;font-size:12px;font-weight:600;padding:10px 16px;border-radius:8px;margin-bottom:16px;display:none}
+.login-error.show{display:block}
+
+/* ── ADMIN LAYOUT ── */
+.admin-wrap{display:none;min-height:100vh;flex-direction:column}
+.admin-wrap.show{display:flex}
+.admin-nav{background:#0a0a0a;border-bottom:1px solid #1a1a1a;padding:0 24px;height:60px;display:flex;align-items:center;gap:20px;position:sticky;top:0;z-index:100}
+.admin-nav-logo{display:flex;align-items:center;gap:8px}
+.admin-nav-wordmark{font-size:16px;font-weight:900;letter-spacing:-0.5px}
+.admin-nav-wordmark span{color:var(--gr)}
+.admin-nav-badge{font-size:9px;font-weight:800;background:var(--grb);border:1px solid var(--grr);color:var(--gr);padding:2px 8px;border-radius:var(--rp);letter-spacing:.05em}
+.admin-nav-spacer{flex:1}
+.admin-nav-user{font-size:12px;color:#888}
+.admin-nav-logout{font-size:11px;font-weight:700;color:#555;background:#111;border:1px solid #1a1a1a;border-radius:var(--rp);padding:5px 12px;cursor:pointer;transition:all var(--t)}
+.admin-nav-logout:hover{color:#ff5050;border-color:rgba(255,80,80,.3)}
+
+/* ── MAIN ── */
+.admin-main{flex:1;padding:32px 24px;max-width:1200px;width:100%;margin:0 auto}
+
+/* ── STATS BAR ── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px}
+.stat-card{background:#111;border:1px solid #1a1a1a;border-radius:16px;padding:20px 22px}
+.stat-num{font-size:28px;font-weight:900;color:var(--gr);letter-spacing:-1px;line-height:1}
+.stat-lbl{font-size:11px;color:#888;margin-top:4px;font-weight:500}
+
+/* ── TOOLBAR ── */
+.toolbar{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.toolbar-title{font-size:18px;font-weight:800}
+.toolbar-spacer{flex:1}
+.btn-new{background:var(--gr);color:#000;border:none;border-radius:10px;padding:10px 20px;font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;transition:opacity var(--t)}
+.btn-new:hover{opacity:.9}
+.search-input{background:#111;border:1px solid #1a1a1a;border-radius:10px;padding:9px 14px;font-family:inherit;font-size:12px;color:#fff;outline:none;width:220px;transition:border-color var(--t)}
+.search-input:focus{border-color:var(--grr)}
+.search-input::placeholder{color:#555}
+
+/* ── POSTS TABLE ── */
+.posts-table-wrap{background:#111;border:1px solid #1a1a1a;border-radius:16px;overflow:hidden}
+.posts-table{width:100%;border-collapse:collapse}
+.posts-table thead tr{border-bottom:1px solid #1a1a1a}
+.posts-table th{padding:14px 16px;text-align:left;font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.06em}
+.posts-table td{padding:14px 16px;font-size:13px;border-bottom:1px solid #1a1a1a;vertical-align:middle}
+.posts-table tr:last-child td{border-bottom:none}
+.posts-table tr:hover td{background:rgba(255,255,255,.02)}
+.post-title-cell{font-weight:600;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.post-cat{font-size:10px;font-weight:700;background:#1a1a1a;border-radius:var(--rp);padding:2px 8px;color:#888}
+.status-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:var(--rp);display:inline-block}
+.status-published{background:var(--grb);border:1px solid var(--grr);color:var(--gr)}
+.status-draft{background:#1a1a1a;border:1px solid #252525;color:#666}
+.action-btns{display:flex;gap:6px}
+.btn-action{font-size:10px;font-weight:700;padding:5px 10px;border-radius:8px;cursor:pointer;border:none;font-family:inherit;transition:all var(--t)}
+.btn-edit{background:#1a1a1a;color:#bbb}
+.btn-edit:hover{background:#252525;color:#fff}
+.btn-publish{background:var(--grb);color:var(--gr);border:1px solid var(--grr)}
+.btn-publish:hover{background:rgba(6,193,103,.2)}
+.btn-unpublish{background:rgba(255,165,0,.1);color:#ffaa00;border:1px solid rgba(255,165,0,.3)}
+.btn-unpublish:hover{background:rgba(255,165,0,.15)}
+.btn-del{background:rgba(255,80,80,.08);color:#ff5050;border:1px solid rgba(255,80,80,.2)}
+.btn-del:hover{background:rgba(255,80,80,.15)}
+.posts-empty{text-align:center;padding:60px 20px;color:#555}
+.posts-empty strong{display:block;font-size:15px;color:#888;margin-bottom:8px}
+.posts-empty span{font-size:13px}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(4px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:24px 16px;overflow-y:auto}
+.modal-overlay.show{display:flex}
+.modal{background:#111;border:1px solid #1a1a1a;border-radius:24px;width:100%;max-width:760px;padding:36px}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.modal-title{font-size:18px;font-weight:800}
+.modal-close{width:32px;height:32px;background:#1a1a1a;border:1px solid #252525;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#888;font-size:16px;transition:all var(--t)}
+.modal-close:hover{background:#252525;color:#fff}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-grid.full{grid-template-columns:1fr}
+.field-group{display:flex;flex-direction:column;gap:6px}
+.field-group label{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.06em}
+.field-group input,.field-group select,.field-group textarea{background:#1a1a1a;border:1px solid #252525;border-radius:10px;padding:11px 14px;font-family:inherit;font-size:13px;color:#fff;outline:none;transition:border-color var(--t);width:100%}
+.field-group input:focus,.field-group select:focus,.field-group textarea:focus{border-color:var(--grr)}
+.field-group input::placeholder,.field-group textarea::placeholder{color:#555}
+.field-group textarea{resize:vertical;min-height:220px;line-height:1.6}
+.field-group select option{background:#1a1a1a}
+.char-count{font-size:10px;color:#555;text-align:right;margin-top:2px}
+.char-count.warn{color:#ff5050}
+.publish-row{display:flex;align-items:center;justify-content:space-between;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:12px;padding:14px 18px;margin-top:4px}
+.publish-row label{font-size:13px;font-weight:600}
+.publish-row span{font-size:11px;color:#888;display:block;margin-top:2px}
+.toggle-wrap{position:relative;width:44px;height:24px}
+.toggle-wrap input{opacity:0;width:0;height:0;position:absolute}
+.toggle-slider{position:absolute;inset:0;background:#252525;border-radius:var(--rp);cursor:pointer;transition:background var(--t)}
+.toggle-slider::before{content:'';position:absolute;width:18px;height:18px;left:3px;bottom:3px;background:#555;border-radius:50%;transition:all var(--t)}
+.toggle-wrap input:checked+.toggle-slider{background:var(--grb);border:1px solid var(--grr)}
+.toggle-wrap input:checked+.toggle-slider::before{transform:translateX(20px);background:var(--gr)}
+.modal-footer{display:flex;gap:10px;margin-top:24px;justify-content:flex-end}
+.btn-save-draft{background:#1a1a1a;color:#bbb;border:1px solid #252525;border-radius:10px;padding:11px 20px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all var(--t)}
+.btn-save-draft:hover{background:#252525;color:#fff}
+.btn-save-publish{background:var(--gr);color:#000;border:none;border-radius:10px;padding:11px 22px;font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;transition:opacity var(--t)}
+.btn-save-publish:hover{opacity:.9}
+
+/* ── EXPORT PANEL ── */
+.export-panel{background:#111;border:1px solid #1a1a1a;border-radius:16px;padding:24px;margin-top:24px}
+.export-panel h3{font-size:14px;font-weight:700;margin-bottom:8px}
+.export-panel p{font-size:12px;color:#888;margin-bottom:16px}
+.export-btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn-export{background:#1a1a1a;color:#bbb;border:1px solid #252525;border-radius:10px;padding:9px 16px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;transition:all var(--t)}
+.btn-export:hover{background:#252525;color:#fff;border-color:var(--grr)}
+.export-output{display:none;margin-top:16px}
+.export-output.show{display:block}
+.export-output textarea{width:100%;height:180px;background:#0a0a0a;border:1px solid var(--grr);border-radius:10px;padding:12px;font-family:'Courier New',monospace;font-size:11px;color:#bbb;outline:none;resize:vertical}
+.copy-btn{margin-top:8px;background:var(--grb);color:var(--gr);border:1px solid var(--grr);border-radius:8px;padding:7px 14px;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;right:24px;background:#111;border:1px solid var(--grr);border-radius:12px;padding:14px 20px;font-size:13px;font-weight:600;color:var(--gr);z-index:300;transform:translateY(80px);opacity:0;transition:all .3s ease;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+
+@media(max-width:640px){
+  .stats-row{grid-template-columns:1fr 1fr}
+  .form-grid{grid-template-columns:1fr}
+  .admin-main{padding:16px}
+  .toolbar{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ LOGIN SCREEN ══════════════ -->
+<div class="login-wrap" id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="login-wordmark">TELZON<span>.</span></div>
+      <div class="login-sub">Admin</div>
+    </div>
+    <div class="login-title">Blog Management Panel</div>
+    <div class="login-desc">Enter your admin password to continue.</div>
+    <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
+    <div class="login-field">
+      <input type="password" id="pw-input" placeholder="Admin password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="login-btn" onclick="doLogin()">Login to Admin Panel</button>
+  </div>
+</div>
+
+<!-- ══════════════ ADMIN DASHBOARD ══════════════ -->
+<div class="admin-wrap" id="admin-wrap">
+
+  <!-- NAV -->
+  <nav class="admin-nav">
+    <div class="admin-nav-logo">
+      <div class="admin-nav-wordmark">TELZON<span>.</span></div>
+      <div class="admin-nav-badge">ADMIN</div>
+    </div>
+    <div class="admin-nav-spacer"></div>
+    <span class="admin-nav-user">Blog CMS</span>
+    <button class="admin-nav-logout" onclick="doLogout()">Logout</button>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="admin-main">
+
+    <!-- STATS -->
+    <div class="stats-row" id="stats-row">
+      <div class="stat-card"><div class="stat-num" id="stat-total">0</div><div class="stat-lbl">Total Posts</div></div>
+      <div class="stat-card"><div class="stat-num" id="stat-pub">0</div><div class="stat-lbl">Published</div></div>
+      <div class="stat-card"><div class="stat-num" id="stat-draft">0</div><div class="stat-lbl">Drafts</div></div>
+      <div class="stat-card"><div class="stat-num" id="stat-cats">0</div><div class="stat-lbl">Categories</div></div>
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <div class="toolbar-title">All Posts</div>
+      <input type="text" class="search-input" placeholder="Search posts..." id="search-input" oninput="renderPosts()">
+      <div class="toolbar-spacer"></div>
+      <button class="btn-new" onclick="openEditor()">+ New Post</button>
+    </div>
+
+    <!-- POSTS TABLE -->
+    <div class="posts-table-wrap">
+      <table class="posts-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="posts-tbody"></tbody>
+      </table>
+      <div class="posts-empty" id="posts-empty" style="display:none">
+        <strong>No posts yet</strong>
+        <span>Create your first blog post using the button above.</span>
+      </div>
+    </div>
+
+    <!-- EXPORT PANEL -->
+    <div class="export-panel">
+      <h3>Export Blog HTML</h3>
+      <p>Generate HTML code for your blog listing page. Copy and paste into <code style="color:var(--gr)">telzon-blogs.html</code>.</p>
+      <div class="export-btns">
+        <button class="btn-export" onclick="exportBlogCards()">Export Blog Cards HTML</button>
+        <button class="btn-export" onclick="exportSitemapEntries()">Export Sitemap Entries</button>
+        <button class="btn-export" onclick="exportAllData()">Export All Data (JSON)</button>
+      </div>
+      <div class="export-output" id="export-output">
+        <textarea id="export-textarea" readonly></textarea>
+        <button class="copy-btn" onclick="copyExport()">Copy to Clipboard</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ══════════════ EDITOR MODAL ══════════════ -->
+<div class="modal-overlay" id="editor-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">New Post</div>
+      <div class="modal-close" onclick="closeEditor()">✕</div>
+    </div>
+
+    <input type="hidden" id="edit-id">
+
+    <div class="form-grid" style="margin-bottom:16px">
+      <div class="field-group" style="grid-column:1/-1">
+        <label>Post Title *</label>
+        <input type="text" id="ed-title" placeholder="e.g. How Nagpur Restaurants Can Double Orders in 90 Days" oninput="autoSlug()">
+      </div>
+      <div class="field-group">
+        <label>URL Slug *</label>
+        <input type="text" id="ed-slug" placeholder="telzon-blog-restaurant-seo-nagpur">
+      </div>
+      <div class="field-group">
+        <label>Category</label>
+        <select id="ed-category">
+          <option value="">Select category</option>
+          <option value="SEO">SEO</option>
+          <option value="Social Media">Social Media</option>
+          <option value="Google Ads">Google Ads</option>
+          <option value="Branding">Branding</option>
+          <option value="AI Marketing">AI Marketing</option>
+          <option value="Restaurant Marketing">Restaurant Marketing</option>
+          <option value="Café Marketing">Café Marketing</option>
+          <option value="Hotel Marketing">Hotel Marketing</option>
+          <option value="Education Marketing">Education Marketing</option>
+          <option value="Healthcare Marketing">Healthcare Marketing</option>
+          <option value="Real Estate">Real Estate</option>
+          <option value="International">International</option>
+          <option value="Case Study">Case Study</option>
+          <option value="Business Tips">Business Tips</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Featured Image URL</label>
+        <input type="text" id="ed-image" placeholder="https://... or leave blank for gradient">
+      </div>
+      <div class="field-group">
+        <label>Tags (comma-separated)</label>
+        <input type="text" id="ed-tags" placeholder="Nagpur, SEO, Restaurant">
+      </div>
+    </div>
+
+    <div class="field-group" style="margin-bottom:16px">
+      <label>Summary (shown in blog listing) — max 160 chars</label>
+      <input type="text" id="ed-summary" placeholder="Brief description for blog card and meta description" maxlength="200" oninput="updateCharCount()">
+      <div class="char-count" id="summary-count">0 / 160</div>
+    </div>
+
+    <div class="form-grid full" style="margin-bottom:16px">
+      <div class="field-group">
+        <label>Post Body (supports HTML)</label>
+        <textarea id="ed-body" placeholder="Write your full blog post here. You can use basic HTML tags like &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;strong&gt;, &lt;a href=&quot;&quot;&gt;..."></textarea>
+      </div>
+    </div>
+
+    <div class="publish-row">
+      <div>
+        <label style="font-size:13px;font-weight:600">Publish Post</label>
+        <span>Make this post visible on the blog listing page</span>
+      </div>
+      <label class="toggle-wrap">
+        <input type="checkbox" id="ed-published">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-save-draft" onclick="savePost(false)">Save as Draft</button>
+      <button class="btn-save-publish" onclick="savePost(true)">Save & Publish</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════
+//  CONSTANTS & STATE
+// ══════════════════════════════════
+const PASS = '9923022925';
+const STORAGE_KEY = 'telzon_blogs';
+let editingId = null;
+
+// ══════════════════════════════════
+//  AUTH
+// ══════════════════════════════════
+function doLogin(){
+  const pw = document.getElementById('pw-input').value;
+  const err = document.getElementById('login-error');
+  if(pw === PASS){
+    sessionStorage.setItem('telzon_admin','1');
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-wrap').classList.add('show');
+    err.classList.remove('show');
+    renderPosts();
+    updateStats();
+  } else {
+    err.classList.add('show');
+    document.getElementById('pw-input').value='';
+    document.getElementById('pw-input').focus();
+  }
+}
+
+function doLogout(){
+  sessionStorage.removeItem('telzon_admin');
+  document.getElementById('admin-wrap').classList.remove('show');
+  document.getElementById('login-screen').style.display='';
+  document.getElementById('pw-input').value='';
+}
+
+// Auto-login if session still valid
+window.addEventListener('DOMContentLoaded',()=>{
+  if(sessionStorage.getItem('telzon_admin')==='1'){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('admin-wrap').classList.add('show');
+    renderPosts();
+    updateStats();
+  }
+  document.getElementById('pw-input').focus();
+});
+
+// ══════════════════════════════════
+//  DATA HELPERS
+// ══════════════════════════════════
+function getPosts(){
+  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); }
+  catch(e){ return []; }
+}
+function savePosts(posts){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+}
+
+// ══════════════════════════════════
+//  STATS
+// ══════════════════════════════════
+function updateStats(){
+  const posts = getPosts();
+  const published = posts.filter(p=>p.published).length;
+  const cats = new Set(posts.map(p=>p.category).filter(Boolean)).size;
+  document.getElementById('stat-total').textContent = posts.length;
+  document.getElementById('stat-pub').textContent = published;
+  document.getElementById('stat-draft').textContent = posts.length - published;
+  document.getElementById('stat-cats').textContent = cats;
+}
+
+// ══════════════════════════════════
+//  RENDER TABLE
+// ══════════════════════════════════
+function renderPosts(){
+  const posts = getPosts();
+  const q = (document.getElementById('search-input').value||'').toLowerCase();
+  const filtered = q ? posts.filter(p=>
+    p.title.toLowerCase().includes(q) ||
+    (p.category||'').toLowerCase().includes(q) ||
+    (p.tags||[]).join(',').toLowerCase().includes(q)
+  ) : posts;
+
+  const tbody = document.getElementById('posts-tbody');
+  const empty = document.getElementById('posts-empty');
+
+  if(!filtered.length){
+    tbody.innerHTML='';
+    empty.style.display='block';
+    empty.querySelector('strong').textContent = q ? 'No posts match your search' : 'No posts yet';
+    empty.querySelector('span').textContent = q ? 'Try a different search term.' : 'Create your first blog post using the button above.';
+    return;
+  }
+  empty.style.display='none';
+
+  // Sorted newest first
+  const sorted = [...filtered].sort((a,b)=> new Date(b.createdAt)-new Date(a.createdAt));
+
+  tbody.innerHTML = sorted.map(post=>{
+    const date = new Date(post.createdAt).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+    const statusClass = post.published ? 'status-published' : 'status-draft';
+    const statusText = post.published ? 'Published' : 'Draft';
+    const toggleBtn = post.published
+      ? `<button class="btn-action btn-unpublish" onclick="togglePublish('${post.id}')">Unpublish</button>`
+      : `<button class="btn-action btn-publish" onclick="togglePublish('${post.id}')">Publish</button>`;
+    return `<tr>
+      <td class="post-title-cell" title="${escHtml(post.title)}">${escHtml(post.title)}</td>
+      <td><span class="post-cat">${escHtml(post.category||'—')}</span></td>
+      <td style="color:#888;font-size:12px">${date}</td>
+      <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+      <td>
+        <div class="action-btns">
+          <button class="btn-action btn-edit" onclick="openEditor('${post.id}')">Edit</button>
+          ${toggleBtn}
+          <button class="btn-action btn-del" onclick="deletePost('${post.id}')">Delete</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+  updateStats();
+}
+
+function escHtml(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ══════════════════════════════════
+//  EDITOR
+// ══════════════════════════════════
+function openEditor(id){
+  editingId = id || null;
+  const modal = document.getElementById('editor-modal');
+  modal.classList.add('show');
+
+  if(id){
+    const post = getPosts().find(p=>String(p.id)===String(id));
+    if(!post) return;
+    document.getElementById('modal-title').textContent = 'Edit Post';
+    document.getElementById('edit-id').value = post.id;
+    document.getElementById('ed-title').value = post.title;
+    document.getElementById('ed-slug').value = post.slug;
+    document.getElementById('ed-category').value = post.category;
+    document.getElementById('ed-image').value = post.image;
+    document.getElementById('ed-tags').value = (post.tags||[]).join(', ');
+    document.getElementById('ed-summary').value = post.summary;
+    document.getElementById('ed-body').value = post.body;
+    document.getElementById('ed-published').checked = post.published;
+    updateCharCount();
+  } else {
+    document.getElementById('modal-title').textContent = 'New Post';
+    document.getElementById('edit-id').value = '';
+    document.getElementById('ed-title').value = '';
+    document.getElementById('ed-slug').value = '';
+    document.getElementById('ed-category').value = '';
+    document.getElementById('ed-image').value = '';
+    document.getElementById('ed-tags').value = '';
+    document.getElementById('ed-summary').value = '';
+    document.getElementById('ed-body').value = '';
+    document.getElementById('ed-published').checked = false;
+    updateCharCount();
+  }
+}
+
+function closeEditor(){
+  document.getElementById('editor-modal').classList.remove('show');
+  editingId = null;
+}
+
+function autoSlug(){
+  const title = document.getElementById('ed-title').value;
+  const slug = 'telzon-blog-' + title.toLowerCase()
+    .replace(/[^a-z0-9\s-]/g,'')
+    .trim()
+    .replace(/\s+/g,'-')
+    .replace(/-+/g,'-')
+    .substring(0,60);
+  document.getElementById('ed-slug').value = slug;
+}
+
+function updateCharCount(){
+  const len = document.getElementById('ed-summary').value.length;
+  const el = document.getElementById('summary-count');
+  el.textContent = `${len} / 160`;
+  el.classList.toggle('warn', len > 160);
+}
+
+function savePost(publishNow){
+  const title = document.getElementById('ed-title').value.trim();
+  const slug = document.getElementById('ed-slug').value.trim();
+  if(!title){ showToast('Title is required'); return; }
+  if(!slug){ showToast('Slug is required'); return; }
+
+  const posts = getPosts();
+  const isPublished = publishNow || document.getElementById('ed-published').checked;
+  const now = new Date().toISOString();
+
+  if(editingId){
+    const idx = posts.findIndex(p=>String(p.id)===String(editingId));
+    if(idx>=0){
+      posts[idx] = {
+        ...posts[idx],
+        title,
+        slug,
+        category: document.getElementById('ed-category').value,
+        image: document.getElementById('ed-image').value.trim(),
+        tags: document.getElementById('ed-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+        summary: document.getElementById('ed-summary').value.trim(),
+        body: document.getElementById('ed-body').value,
+        published: isPublished,
+        updatedAt: now
+      };
+    }
+  } else {
+    posts.push({
+      id: Date.now(),
+      title,
+      slug,
+      category: document.getElementById('ed-category').value,
+      image: document.getElementById('ed-image').value.trim(),
+      tags: document.getElementById('ed-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+      summary: document.getElementById('ed-summary').value.trim(),
+      body: document.getElementById('ed-body').value,
+      published: isPublished,
+      createdAt: now,
+      updatedAt: now
+    });
+  }
+
+  savePosts(posts);
+  closeEditor();
+  renderPosts();
+  showToast(isPublished ? 'Post published successfully' : 'Draft saved');
+}
+
+function togglePublish(id){
+  const posts = getPosts();
+  const idx = posts.findIndex(p=>String(p.id)===String(id));
+  if(idx<0) return;
+  posts[idx].published = !posts[idx].published;
+  posts[idx].updatedAt = new Date().toISOString();
+  savePosts(posts);
+  renderPosts();
+  showToast(posts[idx].published ? 'Post published' : 'Post unpublished');
+}
+
+function deletePost(id){
+  if(!confirm('Delete this post? This cannot be undone.')) return;
+  const posts = getPosts().filter(p=>String(p.id)!==String(id));
+  savePosts(posts);
+  renderPosts();
+  showToast('Post deleted');
+}
+
+// ══════════════════════════════════
+//  EXPORTS
+// ══════════════════════════════════
+function exportBlogCards(){
+  const posts = getPosts().filter(p=>p.published);
+  if(!posts.length){ showToast('No published posts to export'); return; }
+  const sorted = [...posts].sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+  const html = sorted.map(p=>{
+    const date = new Date(p.createdAt).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+    const img = p.image
+      ? `background:url('${p.image}') center/cover`
+      : `background:linear-gradient(135deg,#06192e,#0a3060)`;
+    return `<a href="${p.slug}.html" class="blog-card">
+  <div class="blog-img" style="${img}"></div>
+  <div class="blog-body">
+    ${p.category ? `<span class="blog-cat">${p.category}</span>` : ''}
+    <h3>${p.title}</h3>
+    <p>${p.summary}</p>
+    <div class="blog-meta">${date}</div>
+  </div>
+</a>`;
+  }).join('\n\n');
+  showExport('<!-- Blog Cards HTML — paste into telzon-blogs.html -->\n' + html);
+}
+
+function exportSitemapEntries(){
+  const posts = getPosts().filter(p=>p.published);
+  if(!posts.length){ showToast('No published posts to export'); return; }
+  const entries = posts.map(p=>`  <url>
+    <loc>https://telzon.in/${p.slug}.html</loc>
+    <lastmod>${p.updatedAt.split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>`).join('\n');
+  showExport('<!-- Add these entries to sitemap.xml -->\n' + entries);
+}
+
+function exportAllData(){
+  const posts = getPosts();
+  showExport(JSON.stringify(posts, null, 2));
+}
+
+function showExport(content){
+  const panel = document.getElementById('export-output');
+  const ta = document.getElementById('export-textarea');
+  ta.value = content;
+  panel.classList.add('show');
+  ta.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function copyExport(){
+  const ta = document.getElementById('export-textarea');
+  ta.select();
+  document.execCommand('copy');
+  showToast('Copied to clipboard');
+}
+
+// ══════════════════════════════════
+//  TOAST
+// ══════════════════════════════════
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+// Close modal on overlay click
+document.getElementById('editor-modal').addEventListener('click',function(e){
+  if(e.target===this) closeEditor();
+});
+</script>
+</body>
+</html>
