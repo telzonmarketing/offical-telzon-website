@@ -158,6 +158,9 @@ footer{background:#000;border-top:1px solid #1a1a1a;padding:48px 5vw 24px}
 .fade-up.visible{opacity:1;transform:translateY(0)}
 @media(max-width:1024px){.bento-grid{grid-template-columns:1fr 1fr}.bento-card.wide{grid-column:span 2}.why-bento{grid-template-columns:1fr 1fr}.why-card.big{grid-column:span 2}.footer-grid{grid-template-columns:1fr 1fr;gap:24px}}
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.hero-btns{flex-direction:column}.btn-primary,.btn-ghost{justify-content:center}section{padding:56px 20px}.bento-grid{grid-template-columns:1fr}.bento-card.wide{grid-column:span 1}.why-bento{grid-template-columns:1fr}.why-card.big{grid-column:span 1;grid-template-columns:1fr}.contact-wrap{grid-template-columns:1fr;gap:32px}.form-row{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}}
+
+/* text-badge normalization (emoji replacement) */
+.cicon,.bento-icon,.card-icon,.tk-icon,.tool-icon,.pain-icon,.ai-card-icon,.ind-icon,.blog-card-icon,.service-icon,.contact-icon,.gcta-icon{font-size:11px!important;font-weight:900!important;letter-spacing:.4px!important;color:var(--gr)!important;line-height:1!important}
 </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -237,22 +240,22 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
   <p class="sec-sub" style="margin-bottom:40px">Branding isn't decoration. It's the first thing a customer judges you on — before reading a single word about your business.</p>
   <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px">
     <div style="background:#111;border:1px solid var(--grr);border-radius:20px;padding:28px">
-      <div style="font-size:28px;margin-bottom:14px">❌</div>
+      <div style="font-size:28px;margin-bottom:14px">✕</div>
       <h3 style="font-size:17px;font-weight:700;margin-bottom:8px">Generic logos lose trust instantly</h3>
       <p style="font-size:13px;color:#888;line-height:1.65">A generic, Canva-template logo signals "amateur" before you've said a word. In a competitive market like Nagpur, customers make split-second trust decisions. Poor design means they move on to the business that looks more professional.</p>
     </div>
     <div style="background:#111;border:1px solid #1a1a1a;border-radius:20px;padding:28px">
-      <div style="font-size:28px;margin-bottom:14px">🔀</div>
+      <div style="font-size:28px;margin-bottom:14px">AUTO</div>
       <h3 style="font-size:17px;font-weight:700;margin-bottom:8px">Inconsistent branding confuses customers</h3>
       <p style="font-size:13px;color:#888;line-height:1.65">Different logos on Instagram vs. your menu vs. your signage vs. your packaging creates a fragmented experience. Customers don't recognise you across touchpoints — and trust doesn't compound. Consistency is how brands build recognition.</p>
     </div>
     <div style="background:#111;border:1px solid #1a1a1a;border-radius:20px;padding:28px">
-      <div style="font-size:28px;margin-bottom:14px">📦</div>
+      <div style="font-size:28px;margin-bottom:14px">PKG</div>
       <h3 style="font-size:17px;font-weight:700;margin-bottom:8px">Poor packaging = poor shelf presence</h3>
       <p style="font-size:13px;color:#888;line-height:1.65">In retail and F&B, your packaging is your silent salesperson. Poor packaging reduces perceived quality, limits pricing power and loses customers at the point of purchase — before they've even tried your product.</p>
     </div>
     <div style="background:#111;border:1px solid #1a1a1a;border-radius:20px;padding:28px">
-      <div style="font-size:28px;margin-bottom:14px">📋</div>
+      <div style="font-size:28px;margin-bottom:14px">PLAN</div>
       <h3 style="font-size:17px;font-weight:700;margin-bottom:8px">No brand guidelines = inconsistent representation</h3>
       <p style="font-size:13px;color:#888;line-height:1.65">Without brand guidelines, every employee, designer and vendor represents you differently. Vendors use the wrong colours. Staff use different fonts. Your Instagram doesn't match your menu. Brand guidelines solve this permanently.</p>
     </div>
@@ -265,7 +268,7 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
   <h2 class="sec-title">6 branding services TELZON<br>delivers for Nagpur businesses.</h2>
   <div class="bento-grid">
     <div class="bento-card wide" onmousemove="moveBento(event,this)">
-      <div class="bento-icon">🎨</div>
+      <div class="bento-icon">BRD</div>
       <h3>Logo & Visual Identity</h3>
       <p>Your logo is the anchor of your brand system — but it's only the beginning. TELZON designs logos that work at every size, in every context, in colour and monochrome, on screens and in print. Each logo comes with a complete visual identity: primary and secondary logo lockups, colour palette, typography system and usage rules. Built to last 10+ years, not follow trends.</p>
       <div class="bento-tags"><span class="tag">Primary Logo</span><span class="tag">Logo Variants</span><span class="tag">Colour Palette</span><span class="tag">Typography System</span><span class="tag">Icon & Favicon</span></div>
@@ -275,31 +278,31 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
       </div>
     </div>
     <div class="bento-card" onmousemove="moveBento(event,this)">
-      <div class="bento-icon">📐</div>
+      <div class="bento-icon">DSGN</div>
       <h3>Brand Guidelines & Systems</h3>
       <p>A comprehensive brand manual covering logo usage, colour codes, typography, photography style, tone of voice and real-world application examples. Your brand bible — ensures consistency from your team to your vendors.</p>
       <div class="bento-tags"><span class="tag">Brand Manual</span><span class="tag">Usage Rules</span><span class="tag">Tone of Voice</span></div>
     </div>
     <div class="bento-card" onmousemove="moveBento(event,this)">
-      <div class="bento-icon">📦</div>
+      <div class="bento-icon">PKG</div>
       <h3>Packaging & Print Design</h3>
       <p>Product packaging, bags, boxes, cups, bottles, labels, stickers and all print collateral. We design for shelf impact and brand consistency — from concept to print-ready files for Nagpur printers.</p>
       <div class="bento-tags"><span class="tag">Packaging</span><span class="tag">Labels</span><span class="tag">Print-Ready Files</span></div>
     </div>
     <div class="bento-card" onmousemove="moveBento(event,this)">
-      <div class="bento-icon">📷</div>
+      <div class="bento-icon">PHO</div>
       <h3>Photography Direction</h3>
       <p>Visual language guidelines for photography — lighting, composition, colour grading, subject matter. We brief your photographer or can connect you with Nagpur photographers who understand your brand direction.</p>
       <div class="bento-tags"><span class="tag">Visual Language</span><span class="tag">Style Guide</span><span class="tag">Art Direction</span></div>
     </div>
     <div class="bento-card" onmousemove="moveBento(event,this)">
-      <div class="bento-icon">🍽️</div>
+      <div class="bento-icon">F&B</div>
       <h3>Menu & Collateral Design</h3>
       <p>Restaurant menus, service brochures, rate cards, presentation decks, business cards, letterheads and all brand collateral — designed to the same premium standard as your core brand identity.</p>
       <div class="bento-tags"><span class="tag">Menu Design</span><span class="tag">Brochures</span><span class="tag">Business Cards</span></div>
     </div>
     <div class="bento-card" onmousemove="moveBento(event,this)">
-      <div class="bento-icon">🔄</div>
+      <div class="bento-icon">AUTO</div>
       <h3>Rebranding & Refresh</h3>
       <p>Evolved your business but your brand hasn't kept up? We audit existing brand assets, identify what to retain, what to update and what to rebuild — delivering a fresh identity that honours your history while projecting your future.</p>
       <div class="bento-tags"><span class="tag">Brand Audit</span><span class="tag">Logo Evolution</span><span class="tag">Asset Refresh</span></div>
@@ -341,35 +344,35 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
   <h2 class="sec-title">From cafés to clinics —<br>every Nagpur industry we brand.</h2>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:48px">
     <div style="background:#111;border:1px solid var(--grr);border-radius:16px;padding:22px;display:flex;align-items:center;gap:14px">
-      <div style="font-size:28px">🍽️</div>
+      <div style="font-size:28px">F&B</div>
       <div><div style="font-size:14px;font-weight:700">Restaurants & Cafés</div><div style="font-size:12px;color:#888;margin-top:2px">Menus, packaging, identity</div></div>
     </div>
     <div style="background:#111;border:1px solid #1a1a1a;border-radius:16px;padding:22px;display:flex;align-items:center;gap:14px">
-      <div style="font-size:28px">🏨</div>
+      <div style="font-size:28px">HTL</div>
       <div><div style="font-size:14px;font-weight:700">Hotels & Hospitality</div><div style="font-size:12px;color:#888;margin-top:2px">Premium brand systems</div></div>
     </div>
     <div style="background:#111;border:1px solid #1a1a1a;border-radius:16px;padding:22px;display:flex;align-items:center;gap:14px">
-      <div style="font-size:28px">🏥</div>
+      <div style="font-size:28px">MED</div>
       <div><div style="font-size:14px;font-weight:700">Healthcare & Clinics</div><div style="font-size:12px;color:#888;margin-top:2px">Trust-building identity</div></div>
     </div>
     <div style="background:#111;border:1px solid #1a1a1a;border-radius:16px;padding:22px;display:flex;align-items:center;gap:14px">
-      <div style="font-size:28px">🎓</div>
+      <div style="font-size:28px">EDU</div>
       <div><div style="font-size:14px;font-weight:700">Education</div><div style="font-size:12px;color:#888;margin-top:2px">Institutes, coaching, ed-tech</div></div>
     </div>
     <div style="background:#111;border:1px solid #1a1a1a;border-radius:16px;padding:22px;display:flex;align-items:center;gap:14px">
-      <div style="font-size:28px">👗</div>
+      <div style="font-size:28px">FASH</div>
       <div><div style="font-size:14px;font-weight:700">Retail & Fashion</div><div style="font-size:12px;color:#888;margin-top:2px">Boutiques, labels, stores</div></div>
     </div>
     <div style="background:#111;border:1px solid #1a1a1a;border-radius:16px;padding:22px;display:flex;align-items:center;gap:14px">
-      <div style="font-size:28px">🏗️</div>
+      <div style="font-size:28px">ARC</div>
       <div><div style="font-size:14px;font-weight:700">Real Estate</div><div style="font-size:12px;color:#888;margin-top:2px">Developers, agents, projects</div></div>
     </div>
     <div style="background:#111;border:1px solid #1a1a1a;border-radius:16px;padding:22px;display:flex;align-items:center;gap:14px">
-      <div style="font-size:28px">💼</div>
+      <div style="font-size:28px">BIZ</div>
       <div><div style="font-size:14px;font-weight:700">Professional Services</div><div style="font-size:12px;color:#888;margin-top:2px">Consultants, law, finance</div></div>
     </div>
     <div style="background:#111;border:1px solid #1a1a1a;border-radius:16px;padding:22px;display:flex;align-items:center;gap:14px">
-      <div style="font-size:28px">🚀</div>
+      <div style="font-size:28px">GO</div>
       <div><div style="font-size:14px;font-weight:700">Startups</div><div style="font-size:12px;color:#888;margin-top:2px">Launch-ready brand identity</div></div>
     </div>
   </div>
@@ -449,9 +452,9 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
         <div class="why-row"><span class="wl">Revenue Impact (Clients)</span><span class="wv">Avg +40–60%</span></div>
       </div>
     </div>
-    <div class="why-card"><div class="why-num">📐</div><h3>System, Not Just Logo</h3><p>Every TELZON brand is a complete system — not just a logo file. You receive logo variants, colour codes, typography, usage guidelines and application examples. A brand you can use confidently on every touchpoint.</p></div>
-    <div class="why-card"><div class="why-num">⚡</div><h3>3-Week Delivery</h3><p>We work to tight timelines without compromising quality. Most complete brand packages are delivered in 3 weeks. Launch-critical projects can be expedited further. No months of back-and-forth.</p></div>
-    <div class="why-card"><div class="why-num">🔁</div><h3>Lifetime File Access</h3><p>All source files (AI, EPS, PNG, SVG, PDF) delivered to you outright. You own your brand identity completely — no recurring licensing, no dependency on TELZON to get your own logo files.</p></div>
+    <div class="why-card"><div class="why-num">DSGN</div><h3>System, Not Just Logo</h3><p>Every TELZON brand is a complete system — not just a logo file. You receive logo variants, colour codes, typography, usage guidelines and application examples. A brand you can use confidently on every touchpoint.</p></div>
+    <div class="why-card"><div class="why-num">FAST</div><h3>3-Week Delivery</h3><p>We work to tight timelines without compromising quality. Most complete brand packages are delivered in 3 weeks. Launch-critical projects can be expedited further. No months of back-and-forth.</p></div>
+    <div class="why-card"><div class="why-num">AUTO</div><h3>Lifetime File Access</h3><p>All source files (AI, EPS, PNG, SVG, PDF) delivered to you outright. You own your brand identity completely — no recurring licensing, no dependency on TELZON to get your own logo files.</p></div>
   </div>
 </section>
 
@@ -493,10 +496,10 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
   <div class="contact-wrap">
     <div>
       <h3 style="font-size:20px;font-weight:700;margin-bottom:24px">Free discovery call — no commitment.</h3>
-      <div class="cinfo"><div class="cicon">📞</div><div class="ctext"><strong>WhatsApp / Call</strong><a href="tel:+919307189776">+91 9307189776</a></div></div>
-      <div class="cinfo"><div class="cicon">📧</div><div class="ctext"><strong>Email</strong><a href="mailto:info@telzonmarketing.in">info@telzonmarketing.in</a></div></div>
-      <div class="cinfo"><div class="cicon">📍</div><div class="ctext"><strong>Office</strong>Manish Nagar, Nagpur 440037</div></div>
-      <div class="cinfo"><div class="cicon">📸</div><div class="ctext"><strong>Instagram</strong><a href="https://www.instagram.com/telzonmarketing" target="_blank">@telzonmarketing</a></div></div>
+      <div class="cinfo"><div class="cicon">TEL</div><div class="ctext"><strong>WhatsApp / Call</strong><a href="tel:+919307189776">+91 9307189776</a></div></div>
+      <div class="cinfo"><div class="cicon">MAIL</div><div class="ctext"><strong>Email</strong><a href="mailto:info@telzonmarketing.in">info@telzonmarketing.in</a></div></div>
+      <div class="cinfo"><div class="cicon">LOC</div><div class="ctext"><strong>Office</strong>Manish Nagar, Nagpur 440037</div></div>
+      <div class="cinfo"><div class="cicon">PHO</div><div class="ctext"><strong>Instagram</strong><a href="https://www.instagram.com/telzonmarketing" target="_blank">@telzonmarketing</a></div></div>
       <div style="margin-top:24px"><a href="telzon-free-seo-tools.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--grb);border:1px solid var(--grr);color:var(--gr);font-size:13px;font-weight:700;padding:12px 20px;border-radius:var(--rp)">Try Free SEO Tools →</a></div>
     </div>
     <form class="contact-form" onsubmit="submitForm(event)">
@@ -518,7 +521,7 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
     <div>
       <div class="footer-logo"><div class="wordmark">TELZON<span>.</span></div><div class="sub">Marketing</div></div>
       <p class="footer-tagline">Nagpur's leading branding agency. Logo design, visual identity, packaging and brand systems for modern businesses.</p>
-      <a href="https://wa.me/919307189776" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--gr);color:#000;font-size:12px;font-weight:700;padding:8px 16px;border-radius:var(--rp);text-decoration:none;margin-top:16px">📞 9307189776</a>
+      <a href="https://wa.me/919307189776" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--gr);color:#000;font-size:12px;font-weight:700;padding:8px 16px;border-radius:var(--rp);text-decoration:none;margin-top:16px">TEL 9307189776</a>
     </div>
     <div class="footer-col">
       <h4>Services Nagpur</h4>
@@ -563,6 +566,7 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
     <span>© 2026 Telzon Marketing. All rights reserved. Branding Agency Nagpur · Logo Design · Brand Identity · Packaging Design</span>
     <span>Manish Nagar, Nagpur 440037 · <a href="mailto:info@telzonmarketing.in" style="color:var(--gr)">info@telzonmarketing.in</a></span>
   </div>
+<div style="text-align:center;padding:18px 5vw;border-top:1px solid #1a1a1a;font-size:12px;color:#666">Looking for the <a href="telzon-best-digital-marketing-agency-nagpur.html" style="color:var(--gr);font-weight:600">best digital marketing agency in Nagpur</a>? That's TELZON.</div>
 </footer>
 
 <script>

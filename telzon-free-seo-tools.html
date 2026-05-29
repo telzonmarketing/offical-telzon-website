@@ -129,6 +129,9 @@ footer{background:#000;border-top:1px solid #1a1a1a;padding:36px 5vw 20px}
 .wa-float{position:fixed;bottom:24px;right:24px;z-index:999;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);text-decoration:none;animation:float 3s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 @media(max-width:768px){.tools-grid{grid-template-columns:1fr}.tool-card.full{grid-column:span 1}.t-row{grid-template-columns:1fr}.nav-links{display:none}section{padding:56px 20px}}
+
+/* text-badge normalization (emoji replacement) */
+.cicon,.bento-icon,.card-icon,.tk-icon,.tool-icon,.pain-icon,.ai-card-icon,.ind-icon,.blog-card-icon,.service-icon,.contact-icon,.gcta-icon{font-size:11px!important;font-weight:900!important;letter-spacing:.4px!important;color:var(--gr)!important;line-height:1!important}
 </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -191,7 +194,7 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
     <!-- TOOL 1: KEYWORD DENSITY -->
     <div class="tool-card">
       <div class="tool-header">
-        <div class="tool-icon">🔍</div>
+        <div class="tool-icon">SEO</div>
         <div><h3>Keyword Density Checker</h3><p>Analyse keyword usage in your content</p></div>
       </div>
       <div class="tool-body">
@@ -209,7 +212,7 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
     <!-- TOOL 2: META TAG SERP PREVIEW -->
     <div class="tool-card">
       <div class="tool-header">
-        <div class="tool-icon">🖥️</div>
+        <div class="tool-icon">WEB</div>
         <div><h3>Meta Tag SERP Preview</h3><p>See how your page looks in Google results</p></div>
       </div>
       <div class="tool-body">
@@ -236,7 +239,7 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
     <!-- TOOL 3: SCHEMA GENERATOR -->
     <div class="tool-card full">
       <div class="tool-header">
-        <div class="tool-icon">📋</div>
+        <div class="tool-icon">PLAN</div>
         <div><h3>Local Business Schema Generator</h3><p>Generate valid JSON-LD schema markup for your Nagpur business</p></div>
       </div>
       <div class="tool-body">
@@ -286,7 +289,7 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
     <!-- TOOL 4: READABILITY SCORE -->
     <div class="tool-card">
       <div class="tool-header">
-        <div class="tool-icon">📖</div>
+        <div class="tool-icon">EDU</div>
         <div><h3>Readability Score</h3><p>Flesch-Kincaid reading ease for your content</p></div>
       </div>
       <div class="tool-body">
@@ -299,7 +302,7 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
     <!-- TOOL 5: URL SLUG GENERATOR -->
     <div class="tool-card">
       <div class="tool-header">
-        <div class="tool-icon">🔗</div>
+        <div class="tool-icon">LINK</div>
         <div><h3>URL Slug Generator</h3><p>Convert text to clean SEO-friendly URLs</p></div>
       </div>
       <div class="tool-body">
@@ -324,7 +327,7 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
     <!-- TOOL 6: TITLE LENGTH CHECKER -->
     <div class="tool-card">
       <div class="tool-header">
-        <div class="tool-icon">📏</div>
+        <div class="tool-icon">SEO</div>
         <div><h3>Title & Meta Length Checker</h3><p>Pixel-perfect Google truncation preview</p></div>
       </div>
       <div class="tool-body">
@@ -346,13 +349,13 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
     <!-- TOOL 7: AI KEYWORD PLANNER (full width) -->
     <div class="tool-card full">
       <div class="tool-header">
-        <div class="tool-icon">🤖</div>
+        <div class="tool-icon">AI</div>
         <div><h3>AI Keyword Planner</h3><p>Get search volume, difficulty, CPC & 12 keyword ideas — powered by TELZON AI Engine</p></div>
       </div>
       <div class="tool-body">
         <div class="search-row">
           <input type="text" id="ai-kw" placeholder="Enter any keyword — e.g. best restaurant nagpur, seo agency india, café near me…" onkeydown="if(event.key==='Enter')runAiKw()">
-          <select id="ai-loc"><option value="IN">🇮🇳 India</option><option value="MH">Maharashtra</option><option value="NG">Nagpur</option><option value="US">🇺🇸 USA</option></select>
+          <select id="ai-loc"><option value="IN">IN India</option><option value="MH">Maharashtra</option><option value="NG">Nagpur</option><option value="US">US USA</option></select>
           <button class="btn-go" onclick="runAiKw()" id="ai-btn">Analyse →</button>
         </div>
         <div id="ai-load" style="display:none;align-items:center;gap:10px;padding:16px;color:#888;font-size:13px"><div class="spinner"></div><span>TELZON AI is analysing keyword data…</span></div>
@@ -371,14 +374,14 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
             <div style="overflow-x:auto"><table style="min-width:480px"><thead><tr><th>Keyword</th><th style="text-align:right">Vol/mo</th><th style="text-align:right">Difficulty</th><th style="text-align:right">CPC (₹)</th><th style="text-align:right">Intent</th></tr></thead><tbody id="ai-tbody"></tbody></table></div>
           </div>
         </div>
-        <div id="ai-empty" style="padding:32px;text-align:center;color:#555;font-size:13px"><strong style="display:block;font-size:15px;font-weight:700;color:#888;margin-bottom:6px">🔍 Enter any keyword above</strong>Our AI engine analyses search volume, difficulty, CPC and generates Nagpur-specific keyword opportunities in seconds. Request a full AI Growth Plan via WhatsApp.</div>
+        <div id="ai-empty" style="padding:32px;text-align:center;color:#555;font-size:13px"><strong style="display:block;font-size:15px;font-weight:700;color:#888;margin-bottom:6px">SEO Enter any keyword above</strong>Our AI engine analyses search volume, difficulty, CPC and generates Nagpur-specific keyword opportunities in seconds. Request a full AI Growth Plan via WhatsApp.</div>
       </div>
     </div>
 
     <!-- TOOL 8: FOOD PLATFORM CHECKLIST (full width) -->
     <div class="tool-card full">
       <div class="tool-header">
-        <div class="tool-icon">🍕</div>
+        <div class="tool-icon">FOOD</div>
         <div><h3>Food & Restaurant Platform Optimisation Checklist</h3><p>20-point audit for restaurants & cafés across food delivery, local discovery & social platforms</p></div>
       </div>
       <div class="tool-body">
@@ -396,7 +399,7 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
           <div>
             <div class="checklist-section">
-              <h4>🍕 Food Delivery Platform (7 items)</h4>
+              <h4>FOOD Food Delivery Platform (7 items)</h4>
               <div class="check-item" id="ci-1"><input type="checkbox" onchange="updateChecklist()"><label>High-quality cover photo uploaded (min 1280×720px)</label></div>
               <div class="check-item" id="ci-2"><input type="checkbox" onchange="updateChecklist()"><label>All menu items have individual photos</label></div>
               <div class="check-item" id="ci-3"><input type="checkbox" onchange="updateChecklist()"><label>Menu descriptions include keywords (spicy, grilled, creamy…)</label></div>
@@ -408,7 +411,7 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
           </div>
           <div>
             <div class="checklist-section">
-              <h4>🛵 Delivery Optimisation (6 items)</h4>
+              <h4>DEL Delivery Optimisation (6 items)</h4>
               <div class="check-item"><input type="checkbox" onchange="updateChecklist()"><label>Grocery / convenience listing created (if applicable)</label></div>
               <div class="check-item"><input type="checkbox" onchange="updateChecklist()"><label>Delivery time is accurately set (no false promises)</label></div>
               <div class="check-item"><input type="checkbox" onchange="updateChecklist()"><label>Packaging is branded with logo/sticker</label></div>
@@ -419,14 +422,14 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
           </div>
           <div>
             <div class="checklist-section">
-              <h4>📞 Local Discovery Platforms (4 items)</h4>
+              <h4>TEL Local Discovery Platforms (4 items)</h4>
               <div class="check-item"><input type="checkbox" onchange="updateChecklist()"><label>Business listed in correct category with all subcategories</label></div>
               <div class="check-item"><input type="checkbox" onchange="updateChecklist()"><label>All 5 profile photos uploaded</label></div>
               <div class="check-item"><input type="checkbox" onchange="updateChecklist()"><label>Mobile number is WhatsApp enabled</label></div>
               <div class="check-item"><input type="checkbox" onchange="updateChecklist()"><label>Business description has location keywords (e.g. "restaurant in Dharampeth Nagpur")</label></div>
             </div>
             <div class="checklist-section">
-              <h4>🗺️ Google Business Profile (3 items)</h4>
+              <h4>MAP Google Business Profile (3 items)</h4>
               <div class="check-item"><input type="checkbox" onchange="updateChecklist()"><label>Google Business Profile claimed and verified</label></div>
               <div class="check-item"><input type="checkbox" onchange="updateChecklist()"><label>10+ photos uploaded to Google Business Profile</label></div>
               <div class="check-item"><input type="checkbox" onchange="updateChecklist()"><label>Menu link added to Google Business Profile listing</label></div>
@@ -472,6 +475,7 @@ src="https://www.facebook.com/tr?id=2431732520341319&ev=PageView&noscript=1"/></
     <span>© 2030 Telzon Marketing. All rights reserved.</span>
     <span>Best Digital Marketing Agency in Nagpur · 9307189776</span>
   </div>
+<div style="text-align:center;padding:18px 5vw;border-top:1px solid #1a1a1a;font-size:12px;color:#666">Looking for the <a href="telzon-best-digital-marketing-agency-nagpur.html" style="color:var(--gr);font-weight:600">best digital marketing agency in Nagpur</a>? That's TELZON.</div>
 </footer>
 
 <script>
@@ -608,7 +612,7 @@ function updateChecklist(){
   else if(checked<8){label='Needs Work — lots of room to improve';tip='Start with photos — visual content is the #1 driver of food delivery platform clicks'}
   else if(checked<15){label='Getting There — keep optimising';tip='Review responses can increase repeat orders by 25%'}
   else if(checked<20){label='Almost Optimised — nearly there!';tip='Almost perfect! Complete remaining items for maximum visibility'}
-  else{label='Fully Optimised 🎉';tip='Your listing is fully optimised for maximum discovery'}
+  else{label='Fully Optimised WIN';tip='Your listing is fully optimised for maximum discovery'}
   document.getElementById('checklist-label').textContent=label;
   document.getElementById('checklist-tip').textContent=tip;
   all.forEach(c=>{c.closest('.check-item').classList.toggle('done',c.checked)});
